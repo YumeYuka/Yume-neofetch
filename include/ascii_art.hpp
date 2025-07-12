@@ -2,34 +2,60 @@
 #define ASCII_ART_MERGED_HPP
 
 #include <head.hpp>
+
 #include "color_theme.hpp"
 
-// ASCII艺术生成器类 - 头文件声明和实现合并
 class AsciiArt {
 public:
-    AsciiArt() {
-        // 构造函数
+    AsciiArt() {}
+
+    ~AsciiArt() {}
+
+    std::vector<std::wstring> GetArtByName(std::wstring const& logoName) {
+        if (logoName == L"windows" || logoName == L"Windows") {
+            return GetWindowsArt();
+        } else if (logoName == L"arch" || logoName == L"Arch") {
+            return GetArchArt();
+        } else if (logoName == L"debian" || logoName == L"Debian") {
+            return GetDebianArt();
+        } else if (logoName == L"fedora" || logoName == L"Fedora") {
+            return GetFedoraArt();
+        } else if (logoName == L"macos" || logoName == L"macOS" || logoName == L"MacOS") {
+            return GetMacOsArt();
+        } else if (logoName == L"ubuntu" || logoName == L"Ubuntu") {
+            return GetUbuntuArt();
+        } else if (logoName == L"mint" || logoName == L"Mint" || logoName == L"LinuxMint") {
+            return GetMintArt();
+        } else if (logoName == L"opensuse" || logoName == L"OpenSUSE" || logoName == L"openSUSE") {
+            return GetOpenSUSEArt();
+        } else if (logoName == L"gentoo" || logoName == L"Gentoo") {
+            return GetGentooArt();
+        } else {
+            return GetWindowsArt();
+        }
     }
 
-    ~AsciiArt() {
-        // 析构函数
+    std::vector<std::wstring> GetColoredArtByName(std::wstring const& logoName) {
+        std::vector<std::wstring> art = GetArtByName(logoName);
+        std::vector<std::wstring> coloredArt;
+        for (auto const& line : art) coloredArt.push_back(ColorizeAsciiLine(line));
+        return coloredArt;
     }
 
-    // 获取操作系统对应的ASCII艺术
     std::vector<std::wstring> GetOSArt() {
-        // 根据操作系统版本返回对应的ASCII艺术
-        return GetWindowsArt();
+        return GetArtByName(L"windows");
     }
 
-    // 获取带颜色的操作系统ASCII艺术
     std::vector<std::wstring> GetColoredOSArt() {
-        // 根据操作系统版本返回带颜色的ASCII艺术
-        return GetColoredWindowsArt();
+        return GetColoredArtByName(L"windows");
     }
 
-    // 获取Windows 10/11的ASCII艺术
+    std::vector<std::wstring> GetAvailableLogos() {
+        return {L"windows", L"arch", L"debian",   L"fedora", L"macos",
+                L"ubuntu",  L"mint", L"opensuse", L"gentoo"};
+    }
+
     std::vector<std::wstring> GetWindowsArt() {
-        // Windows标志性的四个方块ASCII艺术
         std::vector<std::wstring> art = {
             L"llllllllllllllll   llllllllllllllll", L"llllllllllllllll   llllllllllllllll",
             L"llllllllllllllll   llllllllllllllll", L"llllllllllllllll   llllllllllllllll",
@@ -46,59 +72,142 @@ public:
         return art;
     }
 
-    // 获取带颜色的Windows ASCII艺术
-    std::vector<std::wstring> GetColoredWindowsArt() {
-        // 获取原始ASCII艺术
-        std::vector<std::wstring> art = GetWindowsArt();
+    std::vector<std::wstring> GetArchArt() {
+        std::vector<std::wstring> art = {
+            L"                   -`               ",  L"                  .o+`              ",
+            L"                 `ooo/              ",  L"                `+oooo:             ",
+            L"               `+oooooo:            ",  L"               -+oooooo+:           ",
+            L"             `/:-:++oooo+:          ",  L"            `/++++/+++++++:         ",
+            L"           `/++++++++++++++:        ",  L"          `/+++ooooooooooooo/       ",
+            L"         ./ooosssso++osssssso+      ",  L"        .oossssso-````/ossssss+     ",
+            L"       -osssssso.      :ssssssso.   ",  L"      :osssssss/        osssso++.   ",
+            L"     /ossssssss/        +ssssooo/   ",  L"   `/ossssso+/:-        -:/+osssso+ ",
+            L"  `+sso+:-`                 `.-/+oso",  L" `++:.                           `-/+",
+            L" .`                                `/", L"                                    "};
+        return art;
+    }
 
-        // 为每一行添加颜色
-        std::vector<std::wstring> coloredArt;
-        for (auto const& line : art) coloredArt.push_back(ColorizeAsciiLine(line));
+    std::vector<std::wstring> GetDebianArt() {
+        std::vector<std::wstring> art = {
+            L"       _,met$$$$$gg.              ",     L"    ,g$$$$$$$$$$$$$$$P.           ",
+            L"  ,g$$P\"     \"\"\"Y$$.\"            ", L" ,$$P'              `$$$.         ",
+            L"',$$P       ,ggs.     `$$b:      ",      L"`d$$'     ,$P'   .    $$$        ",
+            L" $$P      d$'     ,    $$P       ",      L" $$:      $$.   -    ,d$$'       ",
+            L" $$;      Y$P.   .   $$P         ",      L" $$b      `Y$$.   ,$$P'          ",
+            L" $Y$$.    `.`Y$$$$P'             ",      L" `.Y$$b.   `-.__                 ",
+            L"   `._Y$$b.                      ",      L"      `._Y$$b.                   ",
+            L"         `._$$b.                 ",      L"            `$$b.                ",
+            L"              `Y$$b.             ",      L"                 `Y$$b.          ",
+            L"                    `Y$$b.       ",      L"                       `Y$$b.    "};
+        return art;
+    }
 
-        return coloredArt;
+    std::vector<std::wstring> GetFedoraArt() {
+        std::vector<std::wstring> art = {
+            L"             ````````             ", L"         `/osssssssso/`           ",
+            L"       `+ssssssssssssss+`         ", L"     `/ssssssssssssssssss/`       ",
+            L"    `/sssssssssoosssssssss/`      ", L"   -osssssssso`  `/osssssssso-    ",
+            L"  -sssssssss/      /sssssssss-    ", L" `ossssssss/        /ssssssssso`  ",
+            L" `ossssssss/        /ssssssssso`  ", L" `ossssssss/        /ssssssssso`  ",
+            L" `ossssssss/        /ssssssssso`  ", L"  -sssssssss/      /sssssssss-    ",
+            L"   -osssssssso`  `/osssssssso-    ", L"    `/sssssssssoosssssssss/`      ",
+            L"      -ohdmmmdhso+/:--..`         ", L"           ``````                 ",
+            L"                                  ", L"                                  ",
+            L"                                  ", L"                                  "};
+        return art;
+    }
+
+    std::vector<std::wstring> GetMacOsArt() {
+        std::vector<std::wstring> art = {
+            L"             .:'                  ", L"         __ :'__                 ",
+            L"      .'`__`-'__``.              ",  L"     :__________.-'              ",
+            L"     :_________:                 ",  L"      :_________:                ",
+            L"      .'________`'.              ",  L"     '-----------'               ",
+            L"    `-------------`              ",  L"   `--------------`              ",
+            L"  `---------------`              ",  L" `----------------`              ",
+            L" `----------------`              ",  L" `----------------`              ",
+            L" `----------------`              ",  L" `----------------`              ",
+            L"  `---------------`              ",  L"   `--------------`              ",
+            L"    `-------------`              ",  L"     `-----------`               "};
+        return art;
+    }
+
+    std::vector<std::wstring> GetUbuntuArt() {
+        std::vector<std::wstring> art = {
+            L"            .-/+oossssoo+/-.           ",  L"        `:+ssssssssssssssssss+:`       ",
+            L"      -+ssssssssssssssssssyyssss+-     ",  L"    .ossssssssssssssssssdMMMNysssso.   ",
+            L"   /ssssssssssshdmmNNmmyNMMMMhssssss/  ",  L"  +ssssssssshmydMMMMMMMNddddyssssssss+ ",
+            L" /sssssssshNMMMyhhyyyyhmNMMMNhssssssss/",  L".ssssssssdMMMNhsssssssssshNMMMdssssssss.",
+            L"+sssshhhyNMMNyssssssssssssyNMMMysssssss+", L"ossyNMMMNyMMhsssssssssssssshmmmhssssssso",
+            L"ossyNMMMNyMMhsssssssssssssshmmmhssssssso", L"+sssshhhyNMMNyssssssssssssyNMMMysssssss+",
+            L".ssssssssdMMMNhsssssssssshNMMMdssssssss.", L" /sssssssshNMMMyhhyyyyhmNMMMNhssssssss/",
+            L"  +ssssssssshmydMMMMMMMNddddyssssssss+ ",  L"   /ssssssssssshdmmNNmmyNMMMMhssssss/  ",
+            L"    .ossssssssssssssssssdMMMNysssso.   ",  L"      -+ssssssssssssssssssyyssss+-     ",
+            L"        `:+ssssssssssssssssss+:`       ",  L"            .-/+oossssoo+/-.           "};
+        return art;
+    }
+
+    std::vector<std::wstring> GetMintArt() {
+        std::vector<std::wstring> art = {
+            L"             _______                ",  L"            /\\      \\              ",
+            L"           /  \\      \\             ", L"          / /\\ \\______\\           ",
+            L"         / / / /\\_____\\           ",  L"        / / /_/ /\\     \\          ",
+            L"       / /_/__\\/ /      \\         ",  L"       \\________/       /          ",
+            L"        \\_______\\______/          ",  L"            \\__________/           ",
+            L"                                   ",   L"                                   ",
+            L"                                   ",   L"                                   ",
+            L"                                   ",   L"                                   ",
+            L"                                   ",   L"                                   ",
+            L"                                   ",   L"                                   "};
+        return art;
+    }
+
+    std::vector<std::wstring> GetOpenSUSEArt() {
+        std::vector<std::wstring> art = {
+            L"         .----.                 ",  L"       _/      \\_               ",
+            L"      /  o      o\\              ", L"     /     --     \\             ",
+            L"    /\\_        _/\\             ", L"   /   \\______/   \\            ",
+            L"  /                \\           ",  L" /                  \\          ",
+            L"/__________________\\           ",  L"                                ",
+            L"                                ",  L"                                ",
+            L"                                ",  L"                                ",
+            L"                                ",  L"                                ",
+            L"                                ",  L"                                ",
+            L"                                ",  L"                                "};
+        return art;
+    }
+
+    std::vector<std::wstring> GetGentooArt() {
+        std::vector<std::wstring> art = {
+            L"         -/\\                     ", L"        /  |\\                   ",
+            L"       /   | \\                  ",  L"      /    |  \\                 ",
+            L"     /     |   \\                ",  L"    /      |    \\               ",
+            L"   /       |     \\              ",  L"  /        |      \\             ",
+            L" /         |       \\            ",  L"/__________|________\\           ",
+            L"                                ",   L"                                ",
+            L"                                ",   L"                                ",
+            L"                                ",   L"                                ",
+            L"                                ",   L"                                ",
+            L"                                ",   L"                                "};
+        return art;
+    }
+
+    std::vector<std::wstring> GetColoredArtByOS(std::wstring const& osName) {
+        return GetColoredArtByName(osName);
+    }
+
+    std::vector<std::wstring> GetArtByOS(std::wstring const& osName) {
+        return GetArtByName(osName);
     }
 
 private:
-    // 检测Windows版本
-    bool IsWindows11() {
-        // 检测是否为Windows 11
-        HKEY hKey;
-        if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", 0,
-                          KEY_READ, &hKey)
-            == ERROR_SUCCESS) {
-            wchar_t build[256];
-            DWORD   dataSize = sizeof(build);
-            DWORD   dataType;
-
-            if (RegQueryValueExW(hKey, L"CurrentBuild", NULL, &dataType, (LPBYTE)build, &dataSize)
-                == ERROR_SUCCESS) {
-                int buildNumber = _wtoi(build);
-                RegCloseKey(hKey);
-                return buildNumber >= 22000; // Windows 11的构建号从22000开始
-            }
-
-            RegCloseKey(hKey);
-        }
-
-        return false;
-    }
-
-    std::wstring DetectOSVersion() {
-        if (IsWindows11()) return L"Windows 11";
-        else return L"Windows 10";
-    }
-
-    // 将ASCII艺术行添加颜色
     std::wstring ColorizeAsciiLine(std::wstring const& line) {
-        // 获取当前会话的颜色（与系统信息保持一致）
         std::string sessionColor = ColorTheme::GetSessionColor();
         std::string resetColor   = ColorTheme::MonetPalette::RESET;
 
-        // 将颜色编码从string转换为wstring
         std::wstring colorPrefix;
         std::wstring colorSuffix;
 
-        // 转换颜色编码为宽字符
         int colorLen = MultiByteToWideChar(CP_UTF8, 0, sessionColor.c_str(), -1, nullptr, 0);
         if (colorLen > 0) {
             colorPrefix.resize(colorLen - 1);
@@ -111,9 +220,8 @@ private:
             MultiByteToWideChar(CP_UTF8, 0, resetColor.c_str(), -1, &colorSuffix[0], resetLen);
         }
 
-        // 只为非空行添加颜色（保持空行不变）
         if (line.find_first_not_of(L' ') != std::wstring::npos) return colorPrefix + line + colorSuffix;
-        else return line; // 空行保持原样
+        else return line;
     }
 };
 

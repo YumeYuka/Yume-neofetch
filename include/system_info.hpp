@@ -1,11 +1,8 @@
 ﻿#ifndef SYSTEM_INFO_HPP
 #define SYSTEM_INFO_HPP
 
-#include <string>
-#include <vector>
-#include <windows.h>
+#include <head.hpp>
 
-// 系统信息结构体
 struct SystemInfo {
     std::wstring osName;
     std::wstring osVersion;
@@ -21,16 +18,13 @@ struct SystemInfo {
     double diskUsagePercent;
 };
 
-// 系统信息收集器类
 class SystemInfoCollector {
 public:
     SystemInfoCollector();
     ~SystemInfoCollector();
 
-    // 获取完整系统信息
     SystemInfo GetSystemInfo();
 
-    // 获取具体信息的方法
     std::wstring GetOSName();
     std::wstring GetOSVersion();
     std::wstring GetCPUModel();
@@ -45,7 +39,6 @@ public:
     double GetDiskUsagePercent();
 
 private:
-    // 私有辅助方法
     std::wstring GetRegistryValue(HKEY hKey, const std::wstring& subKey, const std::wstring& valueName);
     std::wstring FormatBytes(ULONGLONG bytes);
     std::wstring FormatUptime(ULONGLONG milliseconds);
